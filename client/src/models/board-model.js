@@ -65,7 +65,30 @@ Board.prototype.computerMove = async function () {
   // this AI is very simple; just pick a non-empty pit on
   // the computer's home row and sow from there.
 
-  console.log("Computer passed!");
+  PubSub.publish("message", {message: "I'm thinking..."});
+  await Pause(1000);
+  let homeRow = ['#a','#b','#c','#d','#e','#f'];
+  let possiblePitIds = homeRow.filter((pitID) => {
+    return (this.pits[this.pitMap[pitID]] > 0);
+  });
+
+  let pitID = possiblePitIds[Math.floor(Math.random()*possiblePitIds.length)];
+  let pitCount = this.pits[this.pitMap[pitID]];
+
+  let cursor = this.pitMap[pitID];
+  this.pits[cursor] = 0;
+  this.onBoardChange();
+  PubSub.publish("message", {message: `I'm sowing ${pitCount} seeds from ${pitID}`});
+  cursor = (cursor + 1) % 12; // start sowing one pit to right, CCW
+  for (var seedsInHand = pitCount; seedsInHand>0 ; seedsInHand-=1) {
+    this.pits[cursor] += 1;
+    cursor = (cursor + 1) % 12;
+    this.onBoardChange();
+    await Pause(700); // block for 1/3 second unit next sowing
+  };
+
+  // back over to human.
+
   await Pause(2000);
   PubSub.publish("oware:switchPlayer", {});
 };
