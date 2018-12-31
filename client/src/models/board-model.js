@@ -88,7 +88,7 @@ Board.prototype.computerMove = async function () {
     this.pits[cursor] += 1;
     cursor = (cursor + 1) % 12;
     this.onBoardChange();
-    await Pause(700); // block for 1/3 second unit next sowing
+    await Pause(900); // block for 1/3 second unit next sowing
   };
 
   // did last item equal 2 or 3
