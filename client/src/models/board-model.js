@@ -120,16 +120,18 @@ Board.prototype.humanMove = async function (pitID) {
 
   // did last item equal 2 or 3
   let landedOn = (cursor-1)%12;
-  if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
-    //debugger;
-    PubSub.publish('message',{message:`You captured!`});
-    const capturedPips = this.pits[landedOn];
-    this.pits[landedOn] = 0;
-    this.scores[0] += capturedPips;
-    await Pause(500);
-    this.onBoardChange();
-  }
-
+  // was it in opponent's home row?
+  if (landedOn>6) {
+    if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
+      //debugger;
+      PubSub.publish('message',{message:`You captured!`});
+      const capturedPips = this.pits[landedOn];
+      this.pits[landedOn] = 0;
+      this.scores[0] += capturedPips;
+      await Pause(500);
+      this.onBoardChange();
+    }
+  };
   // computer's go!
   PubSub.publish("oware:switchPlayer", {});
 };

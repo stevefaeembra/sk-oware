@@ -30,6 +30,7 @@ BoardView.prototype.bindEvents = function () {
   PubSub.subscribe('board:changed', (event) => {
     const pits = event.detail.pits;
     const pitMap = event.detail.pitMap;
+    const scores = event.detail.scores;
     this.currentPlayer = event.detail.currentPlayer;
     this.pitViews.forEach((pitView) => {
       const id = pitView.id;
