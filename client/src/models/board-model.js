@@ -100,7 +100,7 @@ Board.prototype.computerMove = async function () {
       PubSub.publish('message',{message:`I captured!`});
       const capturedPips = this.pits[landedOn];
       this.pits[landedOn] = 0;
-      this.scores[0] += capturedPips;
+      this.scores[1] += capturedPips;
       await Pause(500);
       this.onBoardChange();
     }
