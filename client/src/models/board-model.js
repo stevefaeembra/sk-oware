@@ -7,7 +7,7 @@ const Board = function() {
   // pits is numeric array, starts in leftmost pit
   // in bottom row, and goes counter clockise
 
-  this.pits = [0,4,4,4,4,12, 4,0,3,2,4,4];
+  this.pits = [4,4,4,4,4,4, 4,4,4,4,4,4];
   this.pitMap = {
 
     // home row
@@ -26,7 +26,6 @@ const Board = function() {
     '#e' : 10,
     '#f' : 11,
 
-
   }
 }
 
@@ -38,8 +37,13 @@ Board.prototype.onBoardChange = function () {
 };
 
 Board.prototype.bindEvents = function () {
+  // board has changed
   PubSub.subscribe("oware:boardchange", (detail) => {
     this.onBoardChange();
+  });
+  // player has clicked on a home row
+  PubSub.subscribe("pitView:play", (event) => {
+    PubSub.signForDelivery(this, event);
   })
 };
 

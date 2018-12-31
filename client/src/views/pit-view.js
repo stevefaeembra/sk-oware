@@ -21,6 +21,16 @@ PitView.prototype.bindEvents = function () {
       this.element.appendChild(numberDiv);
     };
   });
+
+  // handle click event on the pit div.
+  // but only the bottom row
+
+  const homeRow = ['#A','#B','#C','#D','#E','#F'];
+  if (homeRow.indexOf(this.id)!=-1) {
+    this.element.addEventListener("click", (event) => {
+      PubSub.publish("pitView:play", {id : this.id})
+    });
+  };
 };
 
 module.exports = PitView;

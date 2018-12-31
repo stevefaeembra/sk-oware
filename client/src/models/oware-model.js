@@ -13,7 +13,7 @@ Oware.prototype.newGame = function () {
 };
 
 Oware.prototype.bindEvents = function () {
-  PubSub.subscribe("oware:newgame", (detail) => {
+  PubSub.subscribe("oware:newgame", (event) => {
     PubSub.signForDelivery(this,event);
     this.newGame();
   });
