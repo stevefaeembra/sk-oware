@@ -22,15 +22,32 @@ const BoardView = function(attachment) {
   ];
 };
 
+BoardView.prototype.updateScores = function (scores) {
+  // update scores
+  const player1 = scores[0];
+  const player2 = scores[1];
+  const player1div = document.querySelector('.home#south');
+  const player2div = document.querySelector('.home#north');
+  player1div.innerHTML = '';
+  player2div.innerHTML = '';
+  const score1div = document.createElement('h2');
+  const score2div = document.createElement('h2');
+  score1div.innerHTML = parseInt(player1);
+  score2div.innerHTML = parseInt(player2);
+  player1div.appendChild(score1div);
+  player2div.appendChild(score2div);
+};
+
 BoardView.prototype.bindEvents = function () {
   this.pitViews.forEach((pitView) => {
     pitView.bindEvents();
   });
-  PubSub.subscribe('')
+
   PubSub.subscribe('board:changed', (event) => {
     const pits = event.detail.pits;
     const pitMap = event.detail.pitMap;
     const scores = event.detail.scores;
+    this.updateScores(scores);
     this.currentPlayer = event.detail.currentPlayer;
     this.pitViews.forEach((pitView) => {
       const id = pitView.id;

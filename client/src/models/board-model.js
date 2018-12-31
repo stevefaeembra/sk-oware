@@ -42,10 +42,12 @@ Board.prototype.onBoardChange = function () {
 };
 
 Board.prototype.bindEvents = function () {
+
   // board has changed
   PubSub.subscribe("oware:boardchange", (detail) => {
     this.onBoardChange();
   });
+
   // player has switched
   PubSub.subscribe("oware:switchPlayer", (event) => {
     this.currentPlayer = 3 - this.currentPlayer;
