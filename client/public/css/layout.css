@@ -18,8 +18,9 @@ html {
   width: 64px;
   height: 140px;
   border: 2px solid black;
-  border-radius: 50%;
-  background-color: lightGray;
+  border-radius: 2rem;
+  margin: 0rem 0.5rem;
+  background-image: linear-gradient(to bottom, white, lightGrey);
 }
 .home#south {
   display: flex;
