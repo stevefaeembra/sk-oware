@@ -10,6 +10,7 @@ const Board = function() {
 
   this.pits = [4,4,4,4,4,4, 4,4,4,4,4,4];
   this.currentPlayer = 1;
+  this.scores = [0,0];
   this.pitMap = {
 
     // home row
@@ -35,7 +36,8 @@ Board.prototype.onBoardChange = function () {
   PubSub.publish("board:changed",{
     pits: this.pits,
     pitMap: this.pitMap,
-    currentPlayer: this.currentPlayer
+    currentPlayer: this.currentPlayer,
+    scores: this.scores
   });
 };
 
@@ -115,6 +117,19 @@ Board.prototype.humanMove = async function (pitID) {
     this.onBoardChange();
     await Pause(700); // block for 1/3 second unit next sowing
   };
+
+  // did last item equal 2 or 3
+  let landedOn = (cursor-1)%12;
+  if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
+    //debugger;
+    PubSub.publish('message',{message:`You captured!`});
+    const capturedPips = this.pits[landedOn];
+    this.pits[landedOn] = 0;
+    this.scores[0] += capturedPips;
+    await Pause(500);
+    this.onBoardChange();
+  }
+
   // computer's go!
   PubSub.publish("oware:switchPlayer", {});
 };
