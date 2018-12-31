@@ -38,6 +38,9 @@ html {
   border: 2px solid black;
   border-radius: 50%;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pit#f {
   grid-area: pf;

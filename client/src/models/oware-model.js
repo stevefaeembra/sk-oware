@@ -1,4 +1,5 @@
 // this module contains the game logic
+
 const Board = require('./board-model');
 const PubSub = require('../helpers/pub_sub');
 

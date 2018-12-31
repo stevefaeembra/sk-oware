@@ -15,9 +15,11 @@ PitView.prototype.bindEvents = function () {
     const pitCount = event.detail.count; // e.g. 3
     const pitDiv = this.element;
     pitDiv.innerHTML = '';
-    const numberDiv = document.createElement("h1");
-    numberDiv.innerHTML = parseInt(pitCount);
-    this.element.appendChild(numberDiv);
+    if (pitCount>0) {
+      const numberDiv = document.createElement("h1");
+      numberDiv.innerHTML = parseInt(pitCount);
+      this.element.appendChild(numberDiv);
+    };
   });
 };
 
