@@ -24,6 +24,7 @@ const BoardView = function(attachment) {
 
 BoardView.prototype.updateScores = function (scores) {
   // update scores
+  console.log(scores);
   const player1 = scores[0];
   const player2 = scores[1];
   const player1div = document.querySelector('.home#south');

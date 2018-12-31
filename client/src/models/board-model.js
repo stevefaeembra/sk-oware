@@ -91,6 +91,21 @@ Board.prototype.computerMove = async function () {
     await Pause(700); // block for 1/3 second unit next sowing
   };
 
+  // did last item equal 2 or 3
+  let landedOn = (cursor-1)%12;
+  // was it in human's home row?
+  if (landedOn<5) {
+    if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
+      //debugger;
+      PubSub.publish('message',{message:`I captured!`});
+      const capturedPips = this.pits[landedOn];
+      this.pits[landedOn] = 0;
+      this.scores[0] += capturedPips;
+      await Pause(500);
+      this.onBoardChange();
+    }
+  };
+
   // back over to human.
 
   await Pause(2000);
@@ -123,9 +138,8 @@ Board.prototype.humanMove = async function (pitID) {
   // did last item equal 2 or 3
   let landedOn = (cursor-1)%12;
   // was it in opponent's home row?
-  if (landedOn>6) {
+  if (landedOn>5) {
     if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
-      //debugger;
       PubSub.publish('message',{message:`You captured!`});
       const capturedPips = this.pits[landedOn];
       this.pits[landedOn] = 0;
