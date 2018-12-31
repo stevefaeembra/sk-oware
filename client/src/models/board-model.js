@@ -54,6 +54,10 @@ Board.prototype.humanMove = async function (pitID) {
   // Sow seeds starting in given pit
 
   const pitCount = this.pits[this.pitMap[pitID]];
+  if (pitCount==0) {
+    PubSub.publish("message", {message: "Your turn. You need to click a pit on the bottom row which has seeds in it."})
+    return;
+  }
   console.log(`Sowing ${pitCount} seeds from ${pitID}`);
   // separate each sowing move by 500ms
   let cursor = this.pitMap[pitID];
@@ -65,8 +69,10 @@ Board.prototype.humanMove = async function (pitID) {
     this.pits[cursor] += 1;
     cursor = (cursor + 1) % 12;
     this.onBoardChange();
-    await Pause(300); // block for 1/3 second unit next sowing
-  }
+    await Pause(700); // block for 1/3 second unit next sowing
+  };
+  // computer's go!
+  PubSub.publish("oware:switchPlayer");
 };
 
 module.exports = Board;
