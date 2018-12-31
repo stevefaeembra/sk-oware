@@ -59,12 +59,13 @@ Board.prototype.humanMove = async function (pitID) {
   let cursor = this.pitMap[pitID];
   this.pits[cursor] = 0;
   this.onBoardChange();
+  PubSub.publish("message", {message: `You're sowing ${pitCount} seeds from ${pitID}`});
   cursor = (cursor + 1) % 12; // start sowing one pit to right, CCW
   for (var seedsInHand = pitCount; seedsInHand>0 ; seedsInHand-=1) {
     this.pits[cursor] += 1;
     cursor = (cursor + 1) % 12;
     this.onBoardChange();
-    await Pause(500); // block for 1/2 second unit next sowing
+    await Pause(300); // block for 1/3 second unit next sowing
   }
 };
 

@@ -16,6 +16,7 @@ Oware.prototype.bindEvents = function () {
   PubSub.subscribe("oware:newgame", (event) => {
     PubSub.signForDelivery(this,event);
     this.newGame();
+    PubSub.publish("message", {message: "Your turn!"});
   });
   this.board.bindEvents();
 };
