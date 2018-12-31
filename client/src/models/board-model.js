@@ -47,12 +47,27 @@ Board.prototype.bindEvents = function () {
   // player has switched
   PubSub.subscribe("oware:switchPlayer", (event) => {
     this.currentPlayer = 3 - this.currentPlayer;
+    // if player is computer, do computer move
+    if (this.currentPlayer==2) {
+      this.computerMove();
+    }
   })
   // player has clicked on a home row
   PubSub.subscribe("pitView:play", (event) => {
     PubSub.signForDelivery(this, event);
     this.humanMove(event.detail.id);
   });
+};
+
+Board.prototype.computerMove = async function () {
+
+  // do computer move.
+  // this AI is very simple; just pick a non-empty pit on
+  // the computer's home row and sow from there.
+
+  console.log("Computer passed!");
+  await Pause(2000);
+  PubSub.publish("oware:switchPlayer", {});
 };
 
 Board.prototype.humanMove = async function (pitID) {
