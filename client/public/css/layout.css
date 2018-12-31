@@ -8,3 +8,71 @@ html {
   font-size: 16px;
   background-color: wheat;
 }
+
+.board {
+  display: grid;
+  grid-template-areas: "h1 pf pe pd pc pb pa h2" "h1 pA pB pC pD pE pF h2";
+}
+
+.home {
+  width: 64px;
+  height: 140px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+.home#south {
+  display: flex;
+  align-items: center;
+  grid-area: h1;
+}
+.home#north {
+  display: flex;
+  align-items: center;
+  grid-area: h2;
+}
+
+.pit {
+  width: 64px;
+  height: 64px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: white;
+}
+.pit#f {
+  grid-area: pf;
+}
+.pit#e {
+  grid-area: pe;
+}
+.pit#d {
+  grid-area: pd;
+}
+.pit#c {
+  grid-area: pc;
+}
+.pit#b {
+  grid-area: pb;
+}
+.pit#a {
+  grid-area: pa;
+}
+.pit#A {
+  grid-area: pA;
+}
+.pit#B {
+  grid-area: pB;
+}
+.pit#C {
+  grid-area: pC;
+}
+.pit#D {
+  grid-area: pD;
+}
+.pit#E {
+  grid-area: pE;
+}
+.pit#F {
+  grid-area: pF;
+}
+
+/*# sourceMappingURL=layout.css.map */

@@ -1,0 +1,59 @@
+*
+  padding: 0
+  margin: 0
+  box-sizing: border-box
+
+
+html
+  font-size: 16px
+  background-color: wheat
+
+.board
+  display: grid
+  grid-template-areas: "h1 pf pe pd pc pb pa h2" "h1 pA pB pC pD pE pF h2"
+
+.home
+  width: 64px
+  height: 140px
+  border: 2px solid black
+  border-radius: 50%
+  &#south
+    display: flex
+    align-items: center
+    grid-area: h1
+  &#north
+    display: flex
+    align-items: center
+    grid-area: h2
+
+.pit
+  width: 64px
+  height: 64px
+  border: 2px solid black
+  border-radius: 50%
+  background-color: white
+  &#f
+    grid-area: pf
+  &#e
+    grid-area: pe
+  &#d
+    grid-area: pd
+  &#c
+    grid-area: pc
+  &#b
+    grid-area: pb
+  &#a
+    grid-area: pa
+
+  &#A
+    grid-area: pA
+  &#B
+    grid-area: pB
+  &#C
+    grid-area: pC
+  &#D
+    grid-area: pD
+  &#E
+    grid-area: pE
+  &#F
+    grid-area: pF
