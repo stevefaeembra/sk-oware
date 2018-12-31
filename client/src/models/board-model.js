@@ -7,20 +7,26 @@ const Board = function() {
   // pits is numeric array, starts in leftmost pit
   // in bottom row, and goes counter clockise
 
-  this.pits = [4,4,4,4,4,4,4,4,4,4,4,4];
+  this.pits = [0,4,4,4,4,4, 4,0,3,2,4,4];
   this.pitMap = {
-    '#a' : 0,
-    '#b' : 1,
-    '#c' : 2,
-    '#d' : 3,
-    '#e' : 4,
-    '#f' : 5,
-    '#A' : 6,
-    '#B' : 7,
-    '#C' : 8,
-    '#D' : 9,
-    '#E' : 10,
-    '#F' : 11
+
+    // home row
+    '#A' : 0,
+    '#B' : 1,
+    '#C' : 2,
+    '#D' : 3,
+    '#E' : 4,
+    '#F' : 5
+
+    // computer (north) home row
+    '#a' : 6,
+    '#b' : 7,
+    '#c' : 8,
+    '#d' : 9,
+    '#e' : 10,
+    '#f' : 11,
+
+
   }
 }
 
