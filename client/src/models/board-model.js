@@ -9,6 +9,7 @@ const Board = function() {
   // in bottom row, and goes counter clockise
 
   this.pits = [4,4,4,4,4,4, 4,4,4,4,4,4];
+  this.currentPlayer = 1;
   this.pitMap = {
 
     // home row
@@ -33,7 +34,8 @@ const Board = function() {
 Board.prototype.onBoardChange = function () {
   PubSub.publish("board:changed",{
     pits: this.pits,
-    pitMap: this.pitMap
+    pitMap: this.pitMap,
+    currentPlayer: this.currentPlayer
   });
 };
 
@@ -42,6 +44,10 @@ Board.prototype.bindEvents = function () {
   PubSub.subscribe("oware:boardchange", (detail) => {
     this.onBoardChange();
   });
+  // player has switched
+  PubSub.subscribe("oware:switchPlayer", (event) => {
+    this.currentPlayer = 3 - this.currentPlayer;
+  })
   // player has clicked on a home row
   PubSub.subscribe("pitView:play", (event) => {
     PubSub.signForDelivery(this, event);
@@ -55,7 +61,7 @@ Board.prototype.humanMove = async function (pitID) {
 
   const pitCount = this.pits[this.pitMap[pitID]];
   if (pitCount==0) {
-    PubSub.publish("message", {message: "Your turn. You need to click a pit on the bottom row which has seeds in it."})
+    PubSub.publish("message", {message: "You need to click a pit on the bottom row which has seeds in it."})
     return;
   }
   console.log(`Sowing ${pitCount} seeds from ${pitID}`);
@@ -72,7 +78,7 @@ Board.prototype.humanMove = async function (pitID) {
     await Pause(700); // block for 1/3 second unit next sowing
   };
   // computer's go!
-  PubSub.publish("oware:switchPlayer");
+  PubSub.publish("oware:switchPlayer", {});
 };
 
 module.exports = Board;

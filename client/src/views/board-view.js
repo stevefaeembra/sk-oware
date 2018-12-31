@@ -5,6 +5,7 @@ const PitView = require('./pit-view');
 
 const BoardView = function(attachment) {
   this.element = document.querySelector(attachment);
+  this.currentPlayer = 1;
   this.pitViews = [
     new PitView('#A'),
     new PitView('#B'),
@@ -25,9 +26,11 @@ BoardView.prototype.bindEvents = function () {
   this.pitViews.forEach((pitView) => {
     pitView.bindEvents();
   });
+  PubSub.subscribe('')
   PubSub.subscribe('board:changed', (event) => {
     const pits = event.detail.pits;
     const pitMap = event.detail.pitMap;
+    this.currentPlayer = event.detail.currentPlayer;
     this.pitViews.forEach((pitView) => {
       const id = pitView.id;
       const index = pitMap[id];
