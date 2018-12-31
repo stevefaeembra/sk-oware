@@ -6,18 +6,18 @@ const PitView = require('./pit-view');
 const BoardView = function(attachment) {
   this.element = document.querySelector(attachment);
   this.pitViews = [
-    new PitView('#a'),
-    new PitView('#b'),
-    new PitView('#c'),
-    new PitView('#d'),
-    new PitView('#e'),
-    new PitView('#f'),
     new PitView('#A'),
     new PitView('#B'),
     new PitView('#C'),
     new PitView('#D'),
     new PitView('#E'),
-    new PitView('#F')
+    new PitView('#F'),
+    new PitView('#a'),
+    new PitView('#b'),
+    new PitView('#c'),
+    new PitView('#d'),
+    new PitView('#e'),
+    new PitView('#f')
   ];
 };
 

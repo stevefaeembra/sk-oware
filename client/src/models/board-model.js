@@ -1,6 +1,7 @@
 // models state of the board
 
 const PubSub = require('../helpers/pub_sub');
+const Pause = require("../helpers/sleep");
 
 const Board = function() {
 
@@ -44,7 +45,27 @@ Board.prototype.bindEvents = function () {
   // player has clicked on a home row
   PubSub.subscribe("pitView:play", (event) => {
     PubSub.signForDelivery(this, event);
-  })
+    this.humanMove(event.detail.id);
+  });
+};
+
+Board.prototype.humanMove = async function (pitID) {
+
+  // Sow seeds starting in given pit
+
+  const pitCount = this.pits[this.pitMap[pitID]];
+  console.log(`Sowing ${pitCount} seeds from ${pitID}`);
+  // separate each sowing move by 500ms
+  let cursor = this.pitMap[pitID];
+  this.pits[cursor] = 0;
+  this.onBoardChange();
+  cursor = (cursor + 1) % 12; // start sowing one pit to right, CCW
+  for (var seedsInHand = pitCount; seedsInHand>0 ; seedsInHand-=1) {
+    this.pits[cursor] += 1;
+    cursor = (cursor + 1) % 12;
+    this.onBoardChange();
+    await Pause(500); // block for 1/2 second unit next sowing
+  }
 };
 
 module.exports = Board;
