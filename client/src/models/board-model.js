@@ -97,7 +97,7 @@ Board.prototype.computerMove = async function () {
   if (landedOn<=5) {
     if (this.pits[landedOn]===2 || this.pits[landedOn]===3) {
       //debugger;
-      PubSub.publish('message',{message:`I captured!`});
+      PubSub.publish('message',{message:`I captured ${this.pits[landedOn]}`});
       const capturedPips = this.pits[landedOn];
       this.pits[landedOn] = 0;
       this.scores[1] += capturedPips;
