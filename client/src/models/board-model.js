@@ -11,6 +11,7 @@ const Board = function() {
   this.pits = [4,4,4,4,4,4, 4,4,4,4,4,4];
   this.currentPlayer = 1;
   this.scores = [0,0];
+  this.gameOver = false;
   this.pitMap = {
 
     // home row
@@ -33,12 +34,27 @@ const Board = function() {
 }
 
 Board.prototype.onBoardChange = function () {
+  // called every time a pip is moved, or the board otherwise changes
   PubSub.publish("board:changed",{
     pits: this.pits,
     pitMap: this.pitMap,
     currentPlayer: this.currentPlayer,
     scores: this.scores
   });
+  // check if either player has won
+  let scores = this.scores;
+  if (scores[0]>24 && scores[1]<24) {
+    PubSub.publish("oware:player1won");
+    this.gameOver = true;
+  };
+  if (scores[1]>24 && scores[0]<24) {
+    PubSub.publish("oware:player2won");
+    this.gameOver = true;
+  };
+  if (scores[1]==24 && scores[0]==24) {
+    PubSub.publish("oware:gameDraw");
+    this.gameOver == true;
+  };
 };
 
 Board.prototype.bindEvents = function () {
@@ -46,6 +62,19 @@ Board.prototype.bindEvents = function () {
   // board has changed
   PubSub.subscribe("oware:boardchange", (detail) => {
     this.onBoardChange();
+  });
+
+  // someone has won / there's been a draw
+  PubSub.subscribe("oware:player1won", (req,res) => {
+    PubSub.publish("message", {message: "Well done, you won! Refresh page to play again."});
+  });
+
+  PubSub.subscribe("oware:player2won", (req,res) => {
+    PubSub.publish("message", {message: "I won! Refresh page to play again."});
+  });
+
+  PubSub.subscribe("oware:gameDraw", (req,res) => {
+    PubSub.publish("message", {message: "We drew 24-24. Refresh page to play again."});
   });
 
   // player has switched
@@ -70,7 +99,7 @@ Board.prototype.computerMove = async function () {
   // the computer's home row and sow from there.
 
   PubSub.publish("message", {message: "I'm thinking..."});
-  await Pause(1000);
+  await Pause(500);
   let homeRow = ['#a','#b','#c','#d','#e','#f'];
   let possiblePitIds = homeRow.filter((pitID) => {
     return (this.pits[this.pitMap[pitID]] > 0);
@@ -108,8 +137,10 @@ Board.prototype.computerMove = async function () {
 
   // back over to human.
 
-  await Pause(2000);
-  PubSub.publish("oware:switchPlayer", {});
+  if (this.gameOver === false) {
+    await Pause(2000);
+    PubSub.publish("oware:switchPlayer", {});
+  };
 };
 
 Board.prototype.humanMove = async function (pitID) {
@@ -149,7 +180,9 @@ Board.prototype.humanMove = async function (pitID) {
     }
   };
   // computer's go!
-  PubSub.publish("oware:switchPlayer", {});
+  if (this.gameOver === false) {
+    PubSub.publish("oware:switchPlayer", {});
+  }
 };
 
 module.exports = Board;
