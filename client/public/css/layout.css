@@ -30,6 +30,10 @@ body {
 }
 
 .board {
+  background-color: maroon;
+  border: 2px solid black;
+  border-radius: 2rem;
+  padding: 1rem;
   display: grid;
   grid-template-areas: "h1 pf pe pd pc pb pa h2" "h1 pA pB pC pD pE pF h2";
 }
@@ -40,7 +44,7 @@ body {
   border: 2px solid black;
   border-radius: 2rem;
   margin: 0rem 0.5rem;
-  background-image: radial-gradient(circle at top left, white, #444);
+  background-image: radial-gradient(circle at bottom right, white, #444);
 }
 .home#south {
   display: flex;
@@ -60,7 +64,7 @@ body {
   height: 64px;
   border: 2px solid black;
   border-radius: 50%;
-  background-image: radial-gradient(circle at top left, white, #444);
+  background-image: radial-gradient(circle at top left, #444, white);
   display: flex;
   align-items: center;
   justify-content: center;
