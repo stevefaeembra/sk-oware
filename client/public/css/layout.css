@@ -6,22 +6,22 @@
 
 html {
   font-size: 16px;
-  background-color: wheat;
-  font-family: "Chewy", cursive;
+  background-color: whitesmoke;
+  font-family: "Bungee Inline", cursive;
 }
 
 .title {
-  font-size: 8rem;
-  color: yellow;
+  font-size: 5rem;
+  color: maroon;
   text-align: center;
-  text-shadow: 0px 0px 3rem black;
 }
 
 h2 {
-  font-size: 2rem;
-  color: yellow;
+  font-size: 1.5rem;
+  color: #333;
   text-align: center;
   text-shadow: 0px 0px 1rem black;
+  margin-bottom: 2rem;
 }
 
 .board {
@@ -35,7 +35,7 @@ h2 {
   border: 2px solid black;
   border-radius: 2rem;
   margin: 0rem 0.5rem;
-  background-image: linear-gradient(to bottom, white, lightGrey);
+  background-image: radial-gradient(circle at top left, white, #444);
 }
 .home#south {
   display: flex;
@@ -55,7 +55,7 @@ h2 {
   height: 64px;
   border: 2px solid black;
   border-radius: 50%;
-  background-color: white;
+  background-image: radial-gradient(circle at top left, white, #444);
   display: flex;
   align-items: center;
   justify-content: center;
