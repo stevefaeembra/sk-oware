@@ -29,6 +29,11 @@ body {
   margin: 0 auto;
 }
 
+footer {
+  margin-top: 2rem;
+  font-family: sans-serif;
+}
+
 .board {
   transform: perspective(200px) rotateX(10deg);
   background-color: #7c3936;
