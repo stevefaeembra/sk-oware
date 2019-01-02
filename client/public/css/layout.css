@@ -30,7 +30,7 @@ body {
 }
 
 .board {
-  transform: perspective(200px) rotateX(20deg);
+  transform: perspective(200px) rotateX(10deg);
   background-color: #7c3936;
   border: 2px solid black;
   border-radius: 2rem;
