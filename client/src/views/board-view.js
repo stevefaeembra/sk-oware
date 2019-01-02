@@ -31,8 +31,10 @@ BoardView.prototype.updateScores = function (scores) {
   const player2div = document.querySelector('.home#north');
   player1div.innerHTML = '';
   player2div.innerHTML = '';
-  const score1div = document.createElement('h2');
-  const score2div = document.createElement('h2');
+  const score1div = document.createElement('div');
+  const score2div = document.createElement('div');
+  score1div.className="score";
+  score2div.className="score";
   score1div.innerHTML = parseInt(player1);
   score2div.innerHTML = parseInt(player2);
   player1div.appendChild(score1div);

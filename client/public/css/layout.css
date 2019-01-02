@@ -30,7 +30,7 @@ body {
 }
 
 .board {
-  background-color: maroon;
+  background-color: #7c3936;
   border: 2px solid black;
   border-radius: 2rem;
   padding: 1rem;
@@ -41,10 +41,11 @@ body {
 .home {
   width: 64px;
   height: 140px;
-  border: 2px solid black;
-  border-radius: 2rem;
+  color: yellow;
+  font-size: 1.6rem;
   margin: 0rem 0.5rem;
-  background-image: radial-gradient(circle at bottom right, white, #444);
+  background-image: url("../images/home-pit.png");
+  background-size: cover;
 }
 .home#south {
   display: flex;
@@ -62,9 +63,9 @@ body {
 .pit {
   width: 64px;
   height: 64px;
-  border: 2px solid black;
-  border-radius: 50%;
-  background-image: radial-gradient(circle at top left, #444, white);
+  color: white;
+  background-image: url("../images/pit.png");
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
